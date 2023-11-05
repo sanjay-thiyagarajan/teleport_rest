@@ -14,4 +14,4 @@ COPY . /app
 
 EXPOSE 443
 
-CMD python manage.py runserver 0.0.0.0:443
+CMD python manage.py runserver 0.0.0.0:8080
