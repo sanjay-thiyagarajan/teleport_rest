@@ -1,8 +1,10 @@
 from django.db import models
 from drf_extra_fields.fields import Base64ImageField
 
-genders = [("Male", "Male"), ("Female", "Female"), ("Other", "Other")]
-status = [("pending", "pending"), ("in_progress", "in_progress"), ("completed", "completed"), ("cancelled", "cancelled")]
+genders = [("Male", "Male"), ("Female", "Female"), ("Others", "Others")]
+status = [("pending", "pending"),
+          ("in_progress", "in_progress"),
+          ("completed", "completed"), ("cancelled", "cancelled")]
 
 
 class Office(models.Model):
