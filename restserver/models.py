@@ -14,7 +14,7 @@ class Office(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=500)
-    gender = models.CharField(max_length=10, options=genders)
+    gender = models.CharField(max_length=10, choices=genders)
     home_location = models.CharField(max_length=500)
     work_pattern = models.CharField(max_length=500)
     email_address = models.CharField(max_length=500)
@@ -26,13 +26,13 @@ class Person(models.Model):
 class Vehicle(models.Model):
     vehicle_name = models.CharField(max_length=500)
     vehicle_model = models.CharField(max_length=500)
-    reg_number = models.CharField(max_length=10, options=genders)
+    reg_number = models.CharField(max_length=10, choices=genders)
     mileage = models.IntegerField()
     owner = models.ForeignKey(Person, on_delete=models.CASCADE)
     capacity_including_driver = models.IntegerField()
 
 
 class PoolingRequestModel(models.Model):
-    sender = models.ForeignKey(Person, on_delete=models.CASCADE)
-    receiver = models.ForeignKey(Person, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50, options=status)
+    sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="sender")
+    receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receiver")
+    status = models.CharField(max_length=50, choices=status)
