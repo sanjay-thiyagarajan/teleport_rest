@@ -20,8 +20,7 @@ class Person(models.Model):
     email_address = models.CharField(max_length=500)
     password = models.CharField(max_length=500)
     office = models.ForeignKey(Office, on_delete=models.CASCADE)
-    profile_photo = Base64ImageField(required=True)
-
+    profile_photo = models.TextField()
 
 class Vehicle(models.Model):
     vehicle_name = models.CharField(max_length=500)

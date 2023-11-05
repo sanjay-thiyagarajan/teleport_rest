@@ -6,23 +6,28 @@ def loginApp(request):
     if request.method == "POST":
         email_address = request.POST.get("email_address")
         password = request.POST.get("password")
-        person = Person.objects.get(email_address=email_address, password=password)
+        try:
+            person = Person.objects.get(email_address=email_address, password=password)
 
-        if person is not None:
+            if person is not None:
+                return HttpResponse(str({
+                    "name": person.name,
+                    "gender": person.gender,
+                    "home_location": person.home_location,
+                    "work_pattern": person.work_pattern,
+                    "office": person.office.office_name,
+                    "profile_photo": person.profile_photo
+                    }))
+            else:
+                return HttpResponse(str({
+                    "message": "Invalid Credentials",
+                    "status": "fail"
+                    }))
+        except:
             return HttpResponse(str({
-                "name": person.name,
-                "gender": person.gender,
-                "home_location": person.home_location,
-                "work_pattern": person.work_pattern,
-                "office": person.office.office_name,
-                "profile_photo": person.profile_photo,
-                "status": "success"
+                    "message": "Could not get Person Object",
+                    "status": "fail"
                 }))
-        else:
-            return HttpResponse({
-                "status": "fail",
-                "message": "Invalid Credentials"
-                })
 
 
 def signUp(request):
@@ -46,21 +51,20 @@ def signUp(request):
                 work_pattern=work_pattern,
                 email_address=email_address,
                 password=password,
-                office=office,                  # this is a foreign key
+                profile_photo=profile_photo,
+                office=office
                     )
-
-            person.profile_photo = profile_photo
 
             office.save()
             person.save()
 
-            return HttpResponse({"Success": "Status"})
+            return HttpResponse(str({"Success": "Status"}))
 
         except:
-            return HttpResponse({
+            return HttpResponse(str({
                 "Status": "Error",
                 "error": "Unable to create person"
-                })
+                }))
 
 
 def getAllOffices(request):
@@ -85,10 +89,10 @@ def createOffice(request):
 
             office.save()
 
-            return HttpResponse({"Status": "Success"})
+            return HttpResponse(str({"Status": "Success"}))
 
         except:
-            return HttpResponse({
+            return HttpResponse(str({
                 "Status": "Error",
                 "error": "Unable to create office"
-                })
+                }))
