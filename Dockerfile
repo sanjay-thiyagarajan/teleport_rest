@@ -12,6 +12,6 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-EXPOSE 8000
+EXPOSE 443
 
-CMD python manage.py runserver
+CMD python manage.py runserver 0.0.0.0:443
