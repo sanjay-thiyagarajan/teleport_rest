@@ -1,4 +1,5 @@
 from django.db import models
+from drf_extra_fields.fields import Base64ImageField
 
 genders = [("Male", "Male"), ("Female", "Female"), ("Other", "Other")]
 status = [("pending", "pending"), ("in_progress", "in_progress"), ("completed", "completed"), ("cancelled", "cancelled")]
@@ -17,7 +18,7 @@ class Person(models.Model):
     email_address = models.CharField(max_length=500)
     password = models.CharField(max_length=500)
     office = models.ForeignKey(Office, on_delete=models.CASCADE)
-    profile_photo = models.CharField(max_length=500)
+    profile_photo = Base64ImageField(required=True)
 
 
 class Vehicle(models.Model):
